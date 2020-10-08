@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Temperature Converter</title>
+        <style>
+            html {
+                display: flex;
+                justify-content: center;
+                background-image: url(./background.gif);
+            }
+            main {
+                width: 29em;
+                display: flex;
+                margin: 3em;
+                flex-direction: column;
+                border-style:ridge;
+                border-color: rgb(87, 177, 250);
+                border-radius: 1em;
+                background-image: url(./weather.jpg);
+                background-position: center;
+            }
+
+            div { 
+                height: 25vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            
+            }
+
+            input[type=number] {
+                background: rgb(162, 253, 253);
+                height: 4em;
+                width: 16em;
+                font-size: 1.4em;
+                text-align: center;
+                border-radius: 5px;
+                border-style: hidden;
+            }
+
+            ::placeholder {
+                color: rgb(124, 215, 252);
+            }
+
+            label {
+                padding: 10px;
+                font-size: 1.5em;
+                color: rgb(248, 248, 248);
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div id="fah">
+                <span>
+                    <label style="display:block">Fahrenheit</label>    
+                    <input type="number" placeholder="°F">
+                </span>
+            </div>
+            <div id="celsius">
+                <span>
+                    <label style="display:block">Celsius</label> 
+                     <input type="number" placeholder="°C">
+                 </span>
+            </div>
+            <div id="kelvin">
+                <span>
+                    <label style="display:block">Kalvin</label>
+                    <input type="number" placeholder="K">
+                </span>
+            </div>
+        </main>
+        <script>
+            const fahrenheitInput = document.querySelector('#fah > span > input');
+            const celsiusInput = document.querySelector('#celsius > span > input');
+            const kelvinInput = document.querySelector('#kelvin > span > input');
+
+            function roundThe(number) {
+                return Math.round(number * 100) / 100;
+            }
+
+            function fahrenheitToCAndK() {
+                const fahrenheitTemp = parseFloat(fahrenheitInput.value);
+                const celsiusTemp = (fahrenheitTemp - 32) * (5/9);
+                const kelvinTemp = (fahrenheitTemp + 459.67) * (5/9);
+                celsiusInput.value = roundThe(celsiusTemp);
+                kelvinInput.value = roundThe(kelvinTemp);
+            }
+
+            function celsiusToFAndK() {
+                const celsiusTemp = parseFloat(celsiusInput.value);
+                const fahrenheitTemp = (celsiusTemp * (9/5)) + 32;
+                const kelvinTemp = celsiusTemp + 273.15;
+                fahrenheitInput.value = roundThe(fahrenheitTemp);
+                kelvinInput.value = roundThe(kelvinTemp);
+            }
+
+            function kelvinToCAndF() {
+                const kelvinTemp = parseFloat(kelvinInput.value);
+                const celsiusTemp = kelvinTemp - 273.15;
+                const fahrenheitTemp = (9/5) * (kelvinTemp - 273.15) + 32;
+                celsiusInput.value = roundThe(celsiusTemp);
+                fahrenheitInput.value = roundThe(fahrenheitTemp);
+            }
+
+            fahrenheitInput.addEventListener('input', fahrenheitToCAndK);
+            celsiusInput.addEventListener('input', celsiusToFAndK);
+            kelvinInput.addEventListener('input', kelvinToCAndF);
+
+        </script>
+    </body>
+</html>
